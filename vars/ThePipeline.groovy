@@ -23,7 +23,7 @@
 
 def call(body) {
   def MPL = MPLPipelineConfig(body, 
-    [:]
+    [
       modules: [
         Startup : null,
         //Startup: [
