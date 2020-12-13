@@ -24,40 +24,50 @@
 def call(body) {
   def MPL = MPLPipelineConfig(body, 
     [:]
-      //modules: [
+      modules: [
+        Startup : null,
         //Startup: [
         //  application_name: '' //Needed for Semantic Startup   CashOps.Web
         //],
+        RestoreServer : null,
         //RestoreServer: [
         //  solution_filename: '' //'CashOps.sln'
         //],
+        RestoreClient : null,
         //RestoreClient: [
         //  package_manager: '',   //npm or yarn
         //  restore_folder: '' 
-        //], 
+        //],
+        Notes : null, 
         //Notes: [
         //  project_name: '', //'CashOps.Web' 
         //  jenkins_ghe_token: 'XXX',  //jenkins GHE API token 
         //  git_repository_url: ''   //'https://h2-vspghe01.corp.lfco.cc/CMS/CashOps.git' 
         //],
+        Version : null,
         //Version: [
         //  when_branch : ''  //'/^dev$|^release/.+/'
         //],
+        VersionServer : null,
         //VersionServer: [:],
+        VersionClient : null,
         //VersionClient: [:],
+        Build : null,
         //Build: [
         //  when_branch : ''  //'/^dev$|^release/.+/'
         //],
+        BuildServer : null,
         //BuildServer: [
         //  project_folder : ''  //CashOps.Web
         //],
+        BuildClient : null
         //BuildClient: [:]
       //],
       //common : [ 
       //  previous_release_number: null,
       //  current_release_number: null
       //]  
-    //]
+    ]
     ,
     [
       modules: [
