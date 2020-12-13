@@ -62,7 +62,7 @@ def call(body) {
         //],
         BuildClient : null
         //BuildClient: [:]
-      //],
+      ]
       //common : [ 
       //  previous_release_number: null,
       //  current_release_number: null
