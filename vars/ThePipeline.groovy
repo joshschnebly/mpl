@@ -69,13 +69,14 @@ def call(body) {
       //]  
     ]
     ,
-    [
-      modules: [
-        Notes: [
-          jenkins_ghe_token: 'usa_houston-svc_Octopus_BS-GHE-Token'  //jenkins GHE API token 
-        ] 
-      ]
-    ]
+    [:]
+    //[
+    //  modules: [
+    //    Notes: [
+    //      jenkins_ghe_token: 'usa_houston-svc_Octopus_BS-GHE-Token'  //jenkins GHE API token 
+    //    ] 
+    //  ]
+    //]
   )
   println 'Before Pipeline' + MPL.config.toString()
   pipeline {
