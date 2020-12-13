@@ -50,7 +50,7 @@ class MPLManager implements Serializable {
   private List modulesLoadPaths = ['com/griddynamics/devops/mpl']
 
   /** Pipeline configuration */
-  private Map config = [:]
+  public Map config = [:]
 
   /** Poststep lists container */
   private Map postSteps = [:]
@@ -66,6 +66,8 @@ class MPLManager implements Serializable {
 
   /** List of modules available on project side while enforcement */
   private List enforcedModules = []
+
+  public String pipelineCode = ''
 
   /**
    * Initialization for the MPL manager
@@ -97,7 +99,9 @@ class MPLManager implements Serializable {
    * @return  Overriden configuration for the specified module
    */
   public MPLConfig moduleConfig(String name) {
-    MPLConfig.create(config.modules ? Helper.mergeMaps(config.subMap(config.keySet()-'modules'), (config.modules[name] ?: [:])) : config)
+    //def tempMap = Helper.mergeMaps(config.subMap(config.keySet()-'modules'), (config.modules[name.replaceAll("\\s","")] ?: [:]))
+    //MPLConfig.create(Helper.mergeMaps(tempMap.subMap(tempMap.keySet()-'shared'), (tempMap['shared'] ?: [:])))
+    MPLConfig.create(config.modules ? Helper.mergeMaps(config.subMap(config.keySet()-'modules'), (config.modules[name.replaceAll("\\s","")] ?: [:])) : config)
   }
 
   /**
@@ -108,7 +112,7 @@ class MPLManager implements Serializable {
    * @return  Boolean about existing the module
    */
   public Boolean moduleEnabled(String name) {
-    config.modules ? config.modules[name] != null : false
+    config.modules ? config.modules[name.replaceAll("\\s","")] != null : false
   }
 
   /**

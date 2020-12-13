@@ -3,5 +3,6 @@
 import com.griddynamics.devops.mpl.MPLManager
 
 def call(cfg) {
-  MPLManager.instance.configMerge(cfg)
+  println "Before Merge:${cfg.toString()}"
+  if (cfg.returns != null) MPLManager.instance.configMerge(cfg.returns)
 }

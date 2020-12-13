@@ -54,25 +54,43 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   // Also to make ability to use lib module from overridden one
   // TODO: replace getActiveModules() to Helper.getMPLBlocks()
   def active_modules = MPLManager.instance.getActiveModules()
+  //def pipelineCode = MPLManager.instance.pipelineCode;
 
+  //println "cfg.name-${cfg.name}"
+  //println "name-${name}"
   // Determining the module source file and location
   def base = (cfg.name ?: name).tokenize()
-  def module_path = "modules/${base.last()}/${base.join()}.groovy"
+  def module_path = "modules/${base.first()}/${base.join()}.groovy"
   def project_path = ".jenkins/${module_path}".toString()
-
+  
+  //println "module_path-${module_path}"
+  //println "project_path-${project_path}"
+  
   // Reading module definition from workspace or from the library resources
-  def module_src = null
+  
+  
+  //println "MPLManager.instance.checkEnforcedModule(name)-${MPLManager.instance.checkEnforcedModule(name)}"
+  //println "fileExists(project_path)-${fileExists(project_path)}"
+  //println "(! active_modules.contains(project_path))-${(! active_modules.contains(project_path))}"
+  //println "env.WORKSPACE-${env.WORKSPACE}"
+  def module_src = ''
+  def module_type = ''
+  def module_separator = '--------------------------------------------------------\r\n'
   if( MPLManager.instance.checkEnforcedModule(name)
-      && Helper.pathExists(project_path)
+      && fileExists(project_path)
       && (! active_modules.contains(project_path)) ) {
+    //println "if block"
     module_path = project_path
     module_src = Helper.pathRead(project_path)
+    module_type = 'Project'
   } else {
     // Searching for the not executed module from the loaded libraries
+    //println "else block"
     module_src = Helper.getModulesList(module_path).find { it ->
-      module_path = "library:${it.first()}".toString()
+      module_path = "${env.WORKSPACE}@libs\\${it.first()}".toString()
       ! active_modules.contains(module_path)
     }?.last()
+    module_type = 'MPL'   
   }
 
   if( ! module_src )
@@ -80,7 +98,12 @@ def call(String name = env.STAGE_NAME, cfg = null) {
 
   // OUT will be return to caller
   def out = MPLConfig.create()
+  //println "module_path-later-${module_path}"
+  //MPLManager.instance.pipelineCode += "\r\n\r\nmodule_name-${module_type}-${name}" 
 
+  MPLManager.instance.pipelineCode += "${module_separator}Module(${module_type}.${name})\r\n\r\n${module_src}\r\n" 
+  //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
+  //pipeline += "\r\nmodule_config_pre-${cfg.toString()}" 
   String block_id = MPLManager.instance.pushActiveModule(module_path)
   try {
     Helper.runModule(module_src, module_path, [CFG: cfg, OUT: out])
@@ -96,6 +119,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     throw newex
   }
   finally {
+    //MPLManager.instance.pipelineCode += "\r\nmodule_config_out-${out.toString()}" 
     MPLManager.instance.modulePostStepsRun()
     def errors = MPLManager.instance.getPostStepsErrors()
     if( errors ) {
@@ -107,6 +131,6 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     }
     MPLManager.instance.popActiveModule(block_id)
   }
-
+  println "end Module ${name}: ${out.toString()}"
   return out
 }
