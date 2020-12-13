@@ -1,5 +1,5 @@
 bat(label: 'Clear release notes', script: """
-    if exist .\\${CFG.'project_name'}\\RELEASE_NOTES.md del .\\${CFG.'project_name'}\\RELEASE_NOTES.md
+    if exist .\\${CFG.'project_folder'}\\RELEASE_NOTES.md del .\\${CFG.'project_folder'}\\RELEASE_NOTES.md
 """)
 env.GIT_REPOSITORY_URL = CFG.'git_repository_url'
 
