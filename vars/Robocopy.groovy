@@ -1,4 +1,4 @@
-def robocopy(cmd)
+def call(String cmd)
 {
 	// robocopy uses non-zero exit code even on success, status greater than 3 is fine
 	def status = bat returnStatus: true, script: "ROBOCOPY ${cmd} /nfl /ndl /np"
