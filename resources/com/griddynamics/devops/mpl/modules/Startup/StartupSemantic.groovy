@@ -1,3 +1,4 @@
-//OUT.'common.previous_release_number' = readJSON(file: "${CFG.application_name}\\package.json").version
-OUT.'returns.previous_release_number' = '1.1.1'
+OUT.'common.previous_release_number' = readJSON(file: "${CFG.project_folder}\\package.json").version
+bat(label: 'Previous Release', script: "echo ${OUT.'common.previous_release_number'}")
+
 

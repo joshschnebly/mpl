@@ -27,7 +27,7 @@ def call(body) {
       /*
       modules: [
         Startup: [
-         application_name: , //Needed for Semantic Startup   CashOps.Web
+         project_folder: , //Needed for Semantic Startup   CashOps.Web
         ],
         Restore : [:],
         //RestoreServer: [
