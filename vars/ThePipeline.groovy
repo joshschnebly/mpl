@@ -107,6 +107,7 @@ def call(body) {
         }
       }    
       stage( 'Notes' ) {
+        when { expression { MPLModuleEnabled() } }
         steps {
           MPLPipelineConfigMerge(MPLModule())
         }
