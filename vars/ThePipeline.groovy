@@ -27,7 +27,8 @@ def call(body) {
       modules: [
         //Startup : null,
         Startup: [
-         application_name: '' //Needed for Semantic Startup   CashOps.Web
+         application_name: '',
+         application_name2: '', //Needed for Semantic Startup   CashOps.Web
         ],
         //Restore : null,
         Restore : [:],
