@@ -23,7 +23,8 @@
 
 def call(body) {
   def MPL = MPLPipelineConfig(body, 
-    [
+    [:
+      /*
       modules: [
         //Startup : null,
         Startup: [
@@ -66,6 +67,7 @@ def call(body) {
         BuildClient : null
         //BuildClient: [:]
       ]
+      */
       //common : [ 
       //  previous_release_number: null,
       //  current_release_number: null
