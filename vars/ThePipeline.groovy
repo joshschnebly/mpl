@@ -25,10 +25,12 @@ def call(body) {
   def MPL = MPLPipelineConfig(body, 
     [
       modules: [
-        Startup : null,
-        //Startup: [
-        //  application_name: '' //Needed for Semantic Startup   CashOps.Web
-        //],
+        //Startup : null,
+        Startup: [
+         application_name: '' //Needed for Semantic Startup   CashOps.Web
+        ],
+        //Restore : null,
+        Restore : [:],
         RestoreServer : null,
         //RestoreServer: [
         //  solution_filename: '' //'CashOps.sln'
