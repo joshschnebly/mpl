@@ -91,6 +91,7 @@ def call(body) {
         }
       }
       stage( 'Restore' ) {
+        when { expression { MPLModuleEnabled() } }
         parallel {    
            stage( 'Restore Server' ) {
             when { expression { MPLModuleEnabled() } }
