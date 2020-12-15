@@ -7,12 +7,6 @@ else {
   //Semantic versioning
   changeAsmVer(regexPattern: 'Assembly(\\w*)Version\\("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.(\\*)"\\)', replacementPattern: 'Assembly$1Version("%s")', versionPattern: "${CFG.'current_version_number'}.*")
 }
-
-
-
-
-
-                }
                 
 
                 
