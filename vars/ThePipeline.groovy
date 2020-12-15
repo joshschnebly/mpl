@@ -109,6 +109,9 @@ def call(body) {
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('Version').'when_branch'}", comparator: "REGEXP"
         }
+        steps {
+          MPLPipelineConfigMerge(MPLModule())
+        }
       }
       stage( 'Build' ) {
         when { 
