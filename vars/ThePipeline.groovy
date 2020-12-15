@@ -114,7 +114,9 @@ def call(body) {
           branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
         }
         steps {
+          echo "Before Version Server MPLModule: ${MPL.config.toString()}"
           MPLPipelineConfigMerge(MPLModule())
+          echo "After Version Server MPLModule: ${MPL.config.toString()}"
         }
       }
       stage('Build') {
