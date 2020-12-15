@@ -1,5 +1,5 @@
 def releaseNotesPath = 'RELEASE_NOTES.md'
-def projectFolder = ''
+def projectFolderCd = ''
 
 if(CFG.'project_folder' != null)
 {
