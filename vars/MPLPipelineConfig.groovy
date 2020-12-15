@@ -49,7 +49,6 @@ def call(body, Map defaults = [:], Map overrides = [:]) {
     config.env = env
     config.params = params
     config.currentBuild = currentBuild
-    config.workspace = workspace
 
     // Here we executing the closure to update the pipeline defaults with the closure values
     body()
@@ -58,7 +57,6 @@ def call(body, Map defaults = [:], Map overrides = [:]) {
     config.remove('env')
     config.remove('params')
     config.remove('currentBuild')
-    config.remove('workspace')
   } else if( body in Map ) {
     Helper.mergeMaps(config, body)
   } else
