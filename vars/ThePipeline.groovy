@@ -78,9 +78,7 @@ def call(body) {
       stage( 'Startup' ) {
         when { expression { MPLModuleEnabled() } }
         steps {
-          echo "Before Startup MPLModule: ${MPL.config.toString()}"
           MPLPipelineConfigMerge(MPLModule())
-          echo "After Startup MPLModule: ${MPL.config.toString()}"
         }
       }
       stage( 'Restore' ) {
@@ -106,26 +104,10 @@ def call(body) {
           MPLPipelineConfigMerge(MPLModule())
         }
       }
-      stage( 'Version' ) {
+      stage( 'Version Server' ) {
         when { 
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('Version').'when_branch'}", comparator: "REGEXP"
-        }
-        parallel {     
-          stage( 'Version Server' ) {
-            when { expression { MPLModuleEnabled() } }
-            steps {
-              echo "Before Version Server Merge: ${MPL.config.toString()}"
-              MPLPipelineConfigMerge(MPLModule())
-              echo "After Version Server Merge: ${MPL.config.toString()}"
-            }
-          }
-          stage( 'Version Client' ) {
-            when { expression { MPLModuleEnabled() } }
-            steps {
-              MPLPipelineConfigMerge(MPLModule())
-            }
-          }
         }
       }
       stage( 'Build' ) {
@@ -133,13 +115,19 @@ def call(body) {
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('Build').'when_branch'}", comparator: "REGEXP"
         }
-        parallel {     
+        parallel {    
           stage( 'Build Server' ) {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
             }
           }
+          stage( 'Build Server Library' ) {
+            when { expression { MPLModuleEnabled() } }
+            steps {
+              MPLPipelineConfigMerge(MPLModule())
+            }
+          } 
           stage( 'Build Client' ) {
             when { expression { MPLModuleEnabled() } }
             steps {
@@ -148,13 +136,13 @@ def call(body) {
           }
         }
       }
-      /*
-      stage( 'Package' ) {
+      stage( 'Archive' ) {
         when { expression { MPLModuleEnabled() } }
         steps {
           MPLModule()
         }
       }
+      /*
       stage( 'Test' ) {
         when { expression { MPLModuleEnabled() } }
         steps {
@@ -168,12 +156,6 @@ def call(body) {
         }
       }
       stage( 'Publish' ) {
-        when { expression { MPLModuleEnabled() } }
-        steps {
-          MPLModule()
-        }
-      }
-      stage( 'Archive' ) {
         when { expression { MPLModuleEnabled() } }
         steps {
           MPLModule()
@@ -195,3 +177,4 @@ def call(body) {
     }  
   }
 }
+//echo "Before Startup MPLModule: ${MPL.config.toString()}"
