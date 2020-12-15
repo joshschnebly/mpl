@@ -7,5 +7,5 @@ def archivePackage = "${WORKSPACE}\\dist\\${currentBuild.id}\\${archiveName}.zip
 def projectPath = "${webProjectName}\\${webProjectName}.csproj"
 def deploymentDirectory = "${WORKSPACE}\\Deployment"
 
-bat(label: "Build and Package ${webProjectName}.csproj", script: "\"${tool 'Visual Studio 2019'}\\MSBuild.exe\" ${projectPath} /p:Configuration=${configurationPropery};Platform=\"AnyCPU\";ReleaseVersion=\"${packageVersionValue}\";PackageVersion=\"${packageVersionValue}\";publishUrl=\"${DeploymentDirectory}\";WebPublishMethod=FileSystem /t:WebPublish /p:VisualStudioVersion=15.0")
+bat(label: "Build and Package ${webProjectName}.csproj", script: "\"${tool 'Visual Studio 2019'}\\MSBuild.exe\" ${projectPath} /p:Configuration=${configurationPropery};Platform=\"AnyCPU\";ReleaseVersion=\"${packageVersionValue}\";PackageVersion=\"${packageVersionValue}\";publishUrl=\"${deploymentDirectory}\";WebPublishMethod=FileSystem /t:WebPublish /p:VisualStudioVersion=15.0")
 zip(zipFile: "${archivePackage}", archive: true, dir: "${deploymentDirectory}", glob: '/**/*')
