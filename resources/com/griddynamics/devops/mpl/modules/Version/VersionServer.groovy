@@ -6,7 +6,7 @@ if (CFG.'current_version_number' == null) {
 else {
   //Semantic versioning
   def packageJsonPath = (CFG.'project_folder' ?: ".") + "\\package.json"
-  OUT.'returns.current_version_number' = readJSON(file: ${packageJsonPath}).version
+  OUT.'returns.current_version_number' = readJSON(file: "${packageJsonPath}").version
   changeAsmVer(regexPattern: 'Assembly(\\w*)Version\\("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.(\\*)"\\)', replacementPattern: 'Assembly$1Version("%s")', versionPattern: "${OUT.'returns.current_version_number'}.*")
 }
                 
