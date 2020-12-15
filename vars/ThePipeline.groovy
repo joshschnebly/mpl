@@ -75,16 +75,16 @@ def call(body) {
   pipeline {
     agent any
     stages {
-      stage( 'Startup' ) {
+      stage('Startup') {
         when { expression { MPLModuleEnabled() } }
         steps {
           MPLPipelineConfigMerge(MPLModule())
         }
       }
-      stage( 'Restore' ) {
+      stage('Restore') {
         when { expression { MPLModuleEnabled() } }
         parallel {    
-           stage( 'Restore Server' ) {
+           stage('Restore Server') {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
