@@ -1,5 +1,5 @@
-projectFolder = "${CFG.'project_folder'}" ?: "."
-OUT.'returns.previous_version_number' = readJSON(file: "${projectFolder}\\package.json").version
+def packageJsonPath = (${CFG.'project_folder'} ? ".") + "\\package.json"
+OUT.'returns.previous_version_number' = readJSON(file: "${packageJsonPath}").version
 bat(label: 'Previous Release', script: "echo ${OUT.'returns.previous_version_number'}")
 
 
