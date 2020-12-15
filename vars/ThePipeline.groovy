@@ -57,8 +57,8 @@ def call(body) {
       ]
       */
       //common : [ 
-      //  previous_release_number: null,
-      //  current_release_number: null
+      //  previous_version_number: null,
+      //  current_version_number: null
       //]  
     ]
     ,
@@ -115,8 +115,9 @@ def call(body) {
           stage( 'Version Server' ) {
             when { expression { MPLModuleEnabled() } }
             steps {
+              echo "Before Version Server Merge: ${MPL.config.toString()}"
               MPLPipelineConfigMerge(MPLModule())
-              echo MPL.config.toString()
+              echo "After Version Server Merge: ${MPL.config.toString()}"
             }
           }
           stage( 'Version Client' ) {
