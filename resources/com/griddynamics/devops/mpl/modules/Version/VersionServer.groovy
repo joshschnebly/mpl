@@ -5,6 +5,7 @@ if (CFG.'current_version_number' == null) {
 }
 else {
   //Semantic versioning
+  OUT.'returns.current_version_number' = readJSON(file: "${CFG.'project_folder'}\\package.json").version
   changeAsmVer(regexPattern: 'Assembly(\\w*)Version\\("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.(\\*)"\\)', replacementPattern: 'Assembly$1Version("%s")', versionPattern: "${CFG.'current_version_number'}.*")
 }
                 
