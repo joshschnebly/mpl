@@ -90,7 +90,7 @@ def call(body) {
               MPLPipelineConfigMerge(MPLModule())
             }
           } 
-          stage( 'Restore Client' ) {
+          stage('Restore Client') {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
@@ -98,40 +98,40 @@ def call(body) {
           }
         }
       }    
-      stage( 'Notes' ) {
+      stage('Notes') {
         when { expression { MPLModuleEnabled() } }
         steps {
           MPLPipelineConfigMerge(MPLModule())
         }
       }
-      stage( 'Version Server' ) {
+      stage('Version Server') {
         when { 
           expression { MPLModuleEnabled() } 
-          branch pattern: "${MPL.moduleConfig('Version').'when_branch'}", comparator: "REGEXP"
+          branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
         }
         steps {
           MPLPipelineConfigMerge(MPLModule())
         }
       }
-      stage( 'Build' ) {
+      stage('Build') {
         when { 
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('Build').'when_branch'}", comparator: "REGEXP"
         }
         parallel {    
-          stage( 'Build Server' ) {
+          stage('Build Server') {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
             }
           }
-          stage( 'Build Server Library' ) {
+          stage('Build Server Library') {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
             }
           } 
-          stage( 'Build Client' ) {
+          stage('Build Client') {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
@@ -139,10 +139,10 @@ def call(body) {
           }
         }
       }
-      stage( 'Archive' ) {
+      stage('Archive') {
         when { expression { MPLModuleEnabled() } }
         steps {
-          MPLModule()
+          MPLPipelineConfigMerge(MPLModule())
         }
       }
       /*
