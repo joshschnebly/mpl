@@ -7,6 +7,15 @@ def modelProject = "${modelProjectName}\\${modelProjectName}.csproj"
 def solutionName = "${CFG.'solution_name'}"
 def modelProjectNuGetSuffix = ''
 
+echo gitCommitShort
+echo configurationPropery
+echo releaseNumber
+echo informationalVersion
+echo modelProjectName
+echo modelProject
+echo solutionName
+echo modelProjectNuGetSuffix
+
 if (params.publish_package_beta == true) {
   modelProjectNuGetSuffix = "-beta${currentBuild.id}" 
 }
