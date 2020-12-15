@@ -13,6 +13,6 @@ if (params.publish_package_beta == true) {
 
 bat(label: "Build and Package ${modelProjectName}", script: """
 	dotnet build ${solutionName} --configuration ${configurationPropery} -p:Version=\"${releaseNumber}\" -p:FileVersion=\"${releaseNumber}\" -p:InformationalVersion=\"${informationalVersion}\"
-	dotnet pack ${modelProject} --output \"${workspace}\" --verbosity quiet --configuration ${configurationPropery} -p:Version=\"${releaseNumber}${modelProjectNuGetSuffix}\" -p:FileVersion=\"${releaseNumber}\" -p:InformationalVersion=\"${informationalVersion}\""
+	dotnet pack ${modelProject} --output \"${WORKSPACE}\" --verbosity quiet --configuration ${configurationPropery} -p:Version=\"${releaseNumber}${modelProjectNuGetSuffix}\" -p:FileVersion=\"${releaseNumber}\" -p:InformationalVersion=\"${informationalVersion}\""
 """)
 archiveArtifacts artifacts: '*.nupkg', fingerprint: false
