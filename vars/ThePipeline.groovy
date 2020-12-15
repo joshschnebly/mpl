@@ -74,6 +74,10 @@ def call(body) {
   println 'Before Pipeline' + MPL.config.toString()
   pipeline {
     agent any
+    parameters {
+      booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
+      booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
+    }
     stages {
       stage('Startup') {
         when { expression { MPLModuleEnabled() } }
@@ -125,7 +129,7 @@ def call(body) {
               MPLPipelineConfigMerge(MPLModule())
             }
           }
-          stage('Build Server Library') {
+          stage('Build Server Models') {
             when { expression { MPLModuleEnabled() } }
             steps {
               MPLPipelineConfigMerge(MPLModule())
