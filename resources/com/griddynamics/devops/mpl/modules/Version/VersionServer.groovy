@@ -1,3 +1,5 @@
+
+echo "cvn:${CFG.'current_version_number'}"
 def currentVersionNumber = ''
 if (CFG.'current_version_number' == null) {
     //Default versioning 
