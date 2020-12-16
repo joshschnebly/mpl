@@ -21,7 +21,7 @@ echo "prepost:${CFG.toString()}"
 MPLPostStep('always') {
   echo "post:${CFG.toString()}"
   echo "post:${currentVersionNumber}"
-  if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' != currentVersionNumber) {
+  if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' == currentVersionNumber) {
     withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
     bat(label: "Clear git tags", script: """
         git tag -d v${currentVersionNumber}
