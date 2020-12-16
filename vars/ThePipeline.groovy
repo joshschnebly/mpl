@@ -27,12 +27,10 @@ def call(body) {
  
   pipeline {
     agent any
-    parameters {
-      if(1==0){
-        booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
-        booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
-      }
-    }
+    //parameters {
+        //booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
+        //booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
+    //}
     stages {
       stage('Startup') {
         when { expression { MPLModuleEnabled() } }
