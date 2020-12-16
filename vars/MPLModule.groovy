@@ -131,6 +131,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     }
     MPLManager.instance.popActiveModule(block_id)
   }
-  println "end Module ${name}: ${out.toString()}"
+  //println "end Module ${name}: ${out.toString()}"
+  MPLPipelineConfigMerge(out)
   return out
 }

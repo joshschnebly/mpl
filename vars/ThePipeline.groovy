@@ -35,7 +35,7 @@ def call(body) {
       stage('Startup') {
         when { expression { MPLModuleEnabled() } }
         steps {
-          MPLPipelineConfigMerge(MPLModule())
+          MPLModule()
         }
       }
       stage('Restore') {
@@ -44,13 +44,13 @@ def call(body) {
            stage('Restore Server') {
             when { expression { MPLModuleEnabled() } }
             steps {
-              MPLPipelineConfigMerge(MPLModule())
+              MPLModule()
             }
           } 
           stage('Restore Client') {
             when { expression { MPLModuleEnabled() } }
             steps {
-              MPLPipelineConfigMerge(MPLModule())
+              MPLModule()
             }
           }
         }
@@ -58,7 +58,7 @@ def call(body) {
       stage('Notes') {
         when { expression { MPLModuleEnabled() } }
         steps {
-          MPLPipelineConfigMerge(MPLModule())
+          MPLModule()
         }
       }
       stage('Version Server') {
@@ -67,9 +67,7 @@ def call(body) {
           branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
         }
         steps {
-          echo "Before Version Server MPLModule: ${MPL.config.toString()}"
-          MPLPipelineConfigMerge(MPLModule())
-          echo "After Version Server MPLModule: ${MPL.config.toString()}"
+          MPLModule()
         }
       }
       stage('Build') {
@@ -81,19 +79,19 @@ def call(body) {
           stage('Build Server') {
             when { expression { MPLModuleEnabled() } }
             steps {
-              MPLPipelineConfigMerge(MPLModule())
+              MPLModule()
             }
           }
           stage('Build Server Models') {
             when { expression { MPLModuleEnabled() } }
             steps {
-              MPLPipelineConfigMerge(MPLModule())
+              MPLModule()
             }
           } 
           stage('Build Client') {
             when { expression { MPLModuleEnabled() } }
             steps {
-              MPLPipelineConfigMerge(MPLModule())
+              MPLModule()
             }
           }
         }
@@ -101,7 +99,7 @@ def call(body) {
       stage('Archive') {
         when { expression { MPLModuleEnabled() } }
         steps {
-          MPLPipelineConfigMerge(MPLModule())
+          MPLModule()
         }
       }
       /*
