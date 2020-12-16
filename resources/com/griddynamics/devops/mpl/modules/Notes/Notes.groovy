@@ -14,8 +14,11 @@ withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", u
     bat(label: 'Generating Semantic Release Notes', script: "${projectFolderCd} npx semantic-release --branches ${env.BRANCH_NAME}")
 }
 
+def packageJsonPath = (CFG.'project_folder' ?: ".") + "\\package.json"
+currentVersionNumber = readJSON(file: "${packageJsonPath}").version
+echo "prepost:${CFG.toString()}"
 MPLPostStep('always') {
-  if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' != CFG.'current_version_number') {
+  if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' != currentVersionNumber) {
     withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
     bat(label: "Clear git tags", script: """
         git tag -d v${CFG.'current_version_number'}
