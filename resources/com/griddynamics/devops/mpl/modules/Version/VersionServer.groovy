@@ -15,7 +15,7 @@ bat(label: 'Current Version Number', script: "echo ${currentVersionNumber}")
 
 if(CFG.'release_candidate_suffix' != null) {
   OUT.'returns.current_package_version' = "${currentVersionNumber}${CFG.'release_candidate_suffix'}"
-  bat(label: 'Current Package Version', script: "echo ${packageVersion}")
+  bat(label: 'Current Package Version', script: "echo ${OUT.'returns.current_package_version'}")
 }
 
 if(CFG.'build_type' != null) {
