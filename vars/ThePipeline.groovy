@@ -39,7 +39,7 @@ def call(body) {
       stage('Restore') {
         when { expression { MPLModuleEnabled() } }
         parallel {    
-           stage('Restore Server') {
+          stage('Restore Server') {
             when { expression { MPLModuleEnabled() } }
             steps { MPLModule() }
           } 
@@ -155,7 +155,7 @@ ThePipeline {
       client_folder: //'SafeOps.Web',  									//optional
       post_run_build_args: //''   										//optional
     ],
-	BuildServerWebMsBuild: [
+	  BuildServerWebMsBuild: [
       solution_filename: //'SafeOps.sln',
       configuration_property: //'release',
       web_build_type: //'WebPublish',
