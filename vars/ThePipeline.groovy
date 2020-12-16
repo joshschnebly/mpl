@@ -119,3 +119,69 @@ def call(body) {
     }  
   }
 }
+
+/*
+ThePipeline {
+  modules = [
+    Startup: [:],
+    StartupSemantic: [
+      project_folder: //'SafeOps.Web' 
+    ],
+    Restore: [:],
+    RestoreServer : [
+      solution_filename: //'SafeOps.sln'
+    ],
+    RestoreClient : [
+      package_manager: //'yarn',
+      client_folder: //'SafeOps.Web',
+	  output_directory: //"Deployments\\SafeOps.Web\\ClientApp\\dist"   //optional
+    ],
+    Notes : [
+      git_repository_url: //'https://h2-vspghe01.corp.lfco.cc/jschnebly/SafeOps.git',
+      jenkins_ghe_token: //'usa_houston-jschnebly-GHE-Token',
+      project_folder: //'SafeOps.Web',  //optional
+      master_branch: //'master'
+    ],
+    VersionServer : [
+      when_branch : //'^development$|^release/.+',
+      project_folder: //'SafeOps.Web',             						//optional
+      release_candidate_suffix: isDevBranch ? '-rc' : ''        		//optional
+    ],
+    Build : [
+      when_branch : //'^development$|^release/.+'
+    ],
+    BuildClient: [
+      package_manager: //'npm',
+      client_folder: //'SafeOps.Web',  									//optional
+      post_run_build_args: //''   										//optional
+    ],
+	BuildServerWebMsBuild: [
+      solution_filename: //'SafeOps.sln',
+      configuration_property: //'release',
+      web_build_type: //'WebPublish',
+      runtime_identifier: //'win-x64',
+      projectfile_path: //SafeOps.Web\\SafeOps.Web.csproj",
+      project_name: //'SafeOps.Web'
+    ],
+    BuildServerWebPublish : [
+      configuration_property: //'release',
+      web_project_name: //'SafeOps.Web',
+      web_build_type: //'WebMsBuild',
+      solution_name: //'SafeOps.sln'
+    ],
+    BuildServerModels : [
+      configuration_property: //'release',
+      models_package_project_name: //'Stratum.Harmony.Models',
+      solution_name: 'Stratum.Harmony.sln'
+    ],
+    Archive : [
+      project_name: //'SafeOps.Web'
+    ]
+  ]
+  previous_version_number = //''  										//optional for Semantic Versioning
+  current_version_number = ''
+  //current_package_version = '' 										//output field for VersionServer
+  build_type =  isDevBranch ? 'test' : 'prod'  							//optional for Advanced Build
+
+}
+*/
