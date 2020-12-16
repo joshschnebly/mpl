@@ -1,7 +1,6 @@
 
-echo "cvn:${CFG.'current_version_number'}"
 def currentVersionNumber = ''
-if (CFG.'current_version_number' == null) {
+if (CFG.'previous_version_number' == null) {
     //Default versioning 
   currentVersionNumber = VersionNumber([projectStartDate: '2020-01-01', versionNumberString: '1.${BUILD_MONTH}.${BUILD_DAY}.${BUILDS_TODAY}'])  
   changeAsmVer(regexPattern: 'Assembly(\\w*)Version\\("([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+)"\\)', replacementPattern: 'Assembly$1Version("%s")', versionPattern: "${currentVersionNumber}")
