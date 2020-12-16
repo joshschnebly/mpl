@@ -63,7 +63,7 @@ def call(body) {
       stage('Build') {
         when { 
           expression { MPLModuleEnabled() } 
-          branch pattern: (MPL.moduleConfig('Build').'when_branch' != null ? "${MPL.moduleConfig('Build').'when_branch'}": "\\*."), comparator: "REGEXP"
+          branch pattern: MPL.moduleConfig('Build').'when_branch' != null ? "${MPL.moduleConfig('Build').'when_branch'}": "\\*.", comparator: "REGEXP"
         }
         parallel {    
           stage('Build Server') {
