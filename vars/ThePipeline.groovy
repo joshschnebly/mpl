@@ -34,41 +34,31 @@ def call(body) {
     stages {
       stage('Startup') {
         when { expression { MPLModuleEnabled() } }
-        steps {
-          MPLModule()
-        }
+        steps { MPLModule() }
       }
       stage('Restore') {
         when { expression { MPLModuleEnabled() } }
         parallel {    
            stage('Restore Server') {
             when { expression { MPLModuleEnabled() } }
-            steps {
-              MPLModule()
-            }
+            steps { MPLModule() }
           } 
           stage('Restore Client') {
             when { expression { MPLModuleEnabled() } }
-            steps {
-              MPLModule()
-            }
+            steps { MPLModule() }
           }
         }
       }    
       stage('Notes') {
         when { expression { MPLModuleEnabled() } }
-        steps {
-          MPLModule()
-        }
+        steps { MPLModule() }
       }
       stage('Version Server') {
         when { 
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
         }
-        steps {
-          MPLModule()
-        }
+        steps { MPLModule() }
       }
       stage('Build') {
         when { 
@@ -78,21 +68,15 @@ def call(body) {
         parallel {    
           stage('Build Server') {
             when { expression { MPLModuleEnabled() } }
-            steps {
-              MPLModule()
-            }
+            steps { MPLModule() }
           }
           stage('Build Server Models') {
             when { expression { MPLModuleEnabled() } }
-            steps {
-              MPLModule()
-            }
+            steps { MPLModule() }
           } 
           stage('Build Client') {
             when { expression { MPLModuleEnabled() } }
-            steps {
-              MPLModule()
-            }
+            steps { MPLModule() }
           }
         }
       }
