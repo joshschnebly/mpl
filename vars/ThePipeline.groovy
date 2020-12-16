@@ -58,7 +58,11 @@ def call(body) {
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
         }
-        steps { MPLModule() }
+        steps { 
+          MPLModule() 
+          echo "After Version Server: ${MPL.config.toString()}"
+          
+          }
       }
       stage('Build') {
         when { 
@@ -84,6 +88,7 @@ def call(body) {
         when { expression { MPLModuleEnabled() } }
         steps {
           MPLModule()
+          echo "After Archive: ${MPL.config.toString()}"
         }
       }
       /*
