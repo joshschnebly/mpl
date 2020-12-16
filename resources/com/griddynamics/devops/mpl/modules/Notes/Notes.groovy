@@ -24,8 +24,10 @@ MPLPostStep('always') {
   if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' == currentVersionNumber) {
     withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
     bat(label: "Clear git tags", script: """
+        echo ${GIT_USER}
+        echo ${GIT_PASS}
         git tag -d v${currentVersionNumber}
-        git push https://$GIT_USER:$GIT_PASS@${GIT_REPOSITORY_URL} -d v${currentVersionNumber}
+        git push https://${GIT_USER}:${GIT_PASS}@${GIT_REPOSITORY_URL} -d v${currentVersionNumber}
     """)
     }
   }
