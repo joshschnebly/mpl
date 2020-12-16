@@ -28,8 +28,10 @@ def call(body) {
   pipeline {
     agent any
     parameters {
-      booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
-      booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
+      if(1==0){
+        booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
+        booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
+      }
     }
     stages {
       stage('Startup') {
@@ -58,11 +60,7 @@ def call(body) {
           expression { MPLModuleEnabled() } 
           branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
         }
-        steps { 
-          MPLModule() 
-          echo "After Version Server: ${MPL.config.toString()}"
-          
-          }
+        steps { MPLModule() }
       }
       stage('Build') {
         when { 
@@ -86,10 +84,7 @@ def call(body) {
       }
       stage('Archive') {
         when { expression { MPLModuleEnabled() } }
-        steps {
-          MPLModule()
-          echo "After Archive: ${MPL.config.toString()}"
-        }
+        steps { MPLModule() }
       }
       /*
       stage( 'Test' ) {
