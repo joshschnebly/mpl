@@ -18,7 +18,6 @@ def packageJsonPath = (CFG.'project_folder' ?: ".") + "\\package.json"
 currentVersionNumber = readJSON(file: "${packageJsonPath}").version
 
 MPLPostStep('always') {
-  echo "Always Post Step for Removing GIT Tags"
   if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' != currentVersionNumber) {
     withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
     bat(label: "Clear git tags", script: """

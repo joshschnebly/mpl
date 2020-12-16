@@ -134,7 +134,7 @@ ThePipeline {
     RestoreClient : [
       package_manager: //'yarn',
       client_folder: //'SafeOps.Web',
-	  output_directory: //"Deployments\\SafeOps.Web\\ClientApp\\dist"   //optional
+	    output_directory: //"Deployments\\SafeOps.Web\\ClientApp\\dist"   //optional
     ],
     Notes : [
       git_repository_url: //'https://h2-vspghe01.corp.lfco.cc/jschnebly/SafeOps.git',
@@ -167,16 +167,17 @@ ThePipeline {
       configuration_property: //'release',
       web_project_name: //'SafeOps.Web',
       web_build_type: //'WebMsBuild',
-      solution_name: //'SafeOps.sln'
+      solution_filename: //'SafeOps.sln'
     ],
     BuildServerModels : [
       configuration_property: //'release',
       models_package_project_name: //'Stratum.Harmony.Models',
-      solution_name: 'Stratum.Harmony.sln'
+      solution_filename: 'Stratum.Harmony.sln'
     ],
     Archive : [
       project_name: //'SafeOps.Web'
     ]
+    solution_filename: //'SafeOps.sln'
   ]
   previous_version_number = //''  										//optional for Semantic Versioning
   current_version_number = ''
