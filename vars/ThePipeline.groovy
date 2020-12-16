@@ -56,14 +56,14 @@ def call(body) {
       stage('Version Server') {
         when { 
           expression { MPLModuleEnabled() } 
-          branch pattern: "${MPL.moduleConfig('VersionServer').'when_branch'}", comparator: "REGEXP"
+          branch pattern: ("${MPL.moduleConfig('Build').'when_branch'}" ?: "*."), comparator: "REGEXP"
         }
         steps { MPLModule() }
       }
       stage('Build') {
         when { 
           expression { MPLModuleEnabled() } 
-          branch pattern: "${MPL.moduleConfig('Build').'when_branch'}", comparator: "REGEXP"
+          branch pattern: ("${MPL.moduleConfig('Build').'when_branch'}" ?: "*."), comparator: "REGEXP"
         }
         parallel {    
           stage('Build Server') {
