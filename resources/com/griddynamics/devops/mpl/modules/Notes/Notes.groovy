@@ -14,3 +14,15 @@ withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", u
     bat(label: 'Generating Semantic Release Notes', script: "${projectFolderCd} npx semantic-release --branches ${env.BRANCH_NAME}")
 }
 
+MPLPostStep('always') {
+  if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' != CFG.'current_version_number') {
+    withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+    bat(label: "Clear git tags", script: """
+        git tag -d v${CFG.'current_version_number'}
+        git push https://$GIT_USER:$GIT_PASS@${GIT_REPOSITORY_URL} -d v${CFG.'current_version_number'}
+    """)
+    }
+  }
+}
+
+
