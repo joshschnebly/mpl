@@ -15,10 +15,11 @@ withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", u
 }
 
 def packageJsonPath = (CFG.'project_folder' ?: ".") + "\\package.json"
-currentVersionNumber = readJSON(file: "${packageJsonPath}").version
+def currentVersionNumber = readJSON(file: "${packageJsonPath}").version
+def masterBranch = CFG.'master_branch' ?: 'master'
 
 MPLPostStep('always') {
-  if (env.BRANCH_NAME != CFG.'master_branch' && CFG.'previous_version_number' != currentVersionNumber) {
+  if (env.BRANCH_NAME != masterBranch && CFG.'previous_version_number' != currentVersionNumber) {
     withCredentials([usernamePassword(credentialsId: "${CFG.'jenkins_ghe_token'}", usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
     bat(label: "Clear git tags", script: """
         git tag -d v${currentVersionNumber}
