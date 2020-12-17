@@ -24,10 +24,12 @@
 
 def call(body) {
   def MPL = MPLPipelineConfig(body, 
-    [jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token'], 
+    [
+      jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
+      git_repository_url: scm.getUserRemoteConfigs()[0].getUrl()
+    ], 
     [:])
   echo "Before Pipeline: ${MPL.config.toString()}"
-  echo scm.getUserRemoteConfigs()[0].getUrl()
 
   def when_dev_release_branch = '^dev$|^development$|^release/.+|^test/.+'
   def when_branches_version_server = MPL.config.'when_branches_version_server' ?: when_dev_release_branch
