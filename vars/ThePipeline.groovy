@@ -23,7 +23,10 @@
 //echo "Before Pipeline: ${MPL.config.toString()}"
 
 def call(body) {
-  def MPL = MPLPipelineConfig(body, [:], [:])
+  def MPL = MPLPipelineConfig(body, 
+    [jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token'], 
+    [:])
+
   def when_dev_release_branch = '^dev$|^development$|^release/.+|^test/.+'
   def when_branches_version_server = MPL.config.'when_branches_version_server' ?: when_dev_release_branch
   def when_branches_build = MPL.config.'when_branches_build' ?: when_dev_release_branch
