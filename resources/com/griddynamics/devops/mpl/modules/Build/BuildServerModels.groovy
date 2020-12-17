@@ -1,5 +1,5 @@
 def gitCommitShort = bat(label: 'Extract short commit hash', script: "@git rev-parse --short ${GIT_COMMIT}", returnStdout: true).trim()
-def configurationPropery = "${CFG.'configuration_property'}"
+def configurationPropery = CFG.'configuration_property' ?: 'release'
 def releaseNumber = "${CFG.'current_version_number'}"
 def informationalVersion = "${releaseNumber}.${gitCommitShort}"
 def modelProjectName = "${CFG.'models_package_project_name'}"

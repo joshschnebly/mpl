@@ -1,4 +1,4 @@
-def configurationPropery = "${CFG.'configuration_property'}"
+def configurationPropery = CFG.'configuration_property' ?: 'release'
 def packageVersionValue = "${CFG.'current_version_number'}"
 def projectName = "${CFG.'project_name'}"
 def projectPath = "${projectName}\\${projectName}.csproj"
