@@ -25,8 +25,8 @@
 def call(body) {
   def MPL = MPLPipelineConfig(body, [:], [:])
   def when_dev_release_branch = '^dev$|^release/.+|^test/.+'
-  def when_branches_version_server = CFG.'when_branches_version_server' ?: when_dev_release_branch
-  def when_branches_build = CFG.'when_branches_build' ?: when_dev_release_branch
+  def when_branches_version_server = MPL.config.'when_branches_version_server' ?: when_dev_release_branch
+  def when_branches_build = MPL.config.'when_branches_build' ?: when_dev_release_branch
   pipeline {
     agent any
     //parameters {
