@@ -27,6 +27,7 @@ def call(body) {
   def when_dev_release_branch = '^dev$|^release/.+|^test/.+'
   def when_branches_version_server = MPL.config.'when_branches_version_server' ?: when_dev_release_branch
   def when_branches_build = MPL.config.'when_branches_build' ?: when_dev_release_branch
+  
   pipeline {
     agent any
     //parameters {
@@ -58,14 +59,14 @@ def call(body) {
       stage('Version Server') {
         when { 
           expression { MPLModuleEnabled() } 
-          branch pattern: when_branches_version_server, comparator: "REGEXP"
+          branch pattern: "${when_branches_version_server}", comparator: "REGEXP"
         }
         steps { MPLModule() }
       }
       stage('Build') {
         when { 
           expression { MPLModuleEnabled() } 
-          branch pattern: when_branches_build, comparator: "REGEXP"
+          branch pattern:"${when_branches_build}", comparator: "REGEXP"
         }
         parallel {    
           stage('Build Server') {
