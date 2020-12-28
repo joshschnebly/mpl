@@ -1,6 +1,6 @@
 if(CFG.'robocopy_web_destination_folder' != null){
-    MPLModule('DeployWebRobocopy', CFG)
+    MPLModule('Deploy WebRobocopy', CFG)
 }
 else {
-    MPLModule('DeployOctopus', CFG)
+    MPLModule('Deploy Octopus', CFG)
 }
