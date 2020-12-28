@@ -108,9 +108,7 @@ def call(body) {
       }
       stage( 'Deploy' ) {
         when { expression { MPLModuleEnabled() } }
-        steps {
-          MPLModule()
-        }
+        steps { MPLModule() }
       }
       /*
       stage( 'Publish' ) {
