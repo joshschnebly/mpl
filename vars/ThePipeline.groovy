@@ -23,17 +23,22 @@
 //echo "Before Pipeline: ${MPL.config.toString()}"
 
 def call(body) {
+  def gitUrl = scm.getUserRemoteConfigs()[0].getUrl()
+  def gitRepositoryName = gitUrl.substring(gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4)
+
   def MPL = MPLPipelineConfig(body, 
     [
       jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
-      git_repository_url: scm.getUserRemoteConfigs()[0].getUrl()
+      git_repository_url: gitUrl,
+      solution_filename: "${gitRepositoryName}.sln",
+      models_package_project_name: "${gitRepositoryName}.Models"
     ], 
     [:])
-  echo "Before Pipeline: ${MPL.config.toString()}"
 
-  def when_dev_release_branch = '^dev$|^development$|^release/.+|^test/.+'
-  def when_branches_version_server = MPL.config.'when_branches_version_server' ?: when_dev_release_branch
-  def when_branches_build = MPL.config.'when_branches_build' ?: when_dev_release_branch
+  def branches_version_build_test = MPL.config.'branches_version_build_test' ?: '.*'
+  def when_branches_version_server = MPL.config.'when_branches_version_server' ?: branches_version_build_test
+  def when_branches_build = MPL.config.'when_branches_build' ?: branches_version_build_test
+  def when_branches_test = MPL.config.'when_branches_test' ?: branches_version_build_test
   
   pipeline {
     agent any
@@ -93,13 +98,13 @@ def call(body) {
       stage('Archive') {
         when { expression { MPLModuleEnabled() } }
         steps { MPLModule() }
-      }
-      /*
+      }  
       stage( 'Test' ) {
-        when { expression { MPLModuleEnabled() } }
-        steps {
-          MPLModule()
+        when { 
+          expression { MPLModuleEnabled() } 
+          branch pattern: when_branches_test, comparator: "REGEXP"
         }
+        steps { MPLModule() }
       }
       stage( 'Deploy' ) {
         when { expression { MPLModuleEnabled() } }
@@ -107,6 +112,7 @@ def call(body) {
           MPLModule()
         }
       }
+      /*
       stage( 'Publish' ) {
         when { expression { MPLModuleEnabled() } }
         steps {
@@ -153,13 +159,10 @@ ThePipeline {
       master_branch: //'master'
     ],
     VersionServer : [
-      when_branch : //'^development$|^release/.+',
       project_folder: //'SafeOps.Web',             						//optional
       release_candidate_suffix: isDevBranch ? '-rc' : ''        		//optional
     ],
-    Build : [
-      when_branch : //'^development$|^release/.+'
-    ],
+    Build : [:],
     BuildClient: [
       package_manager: //'npm',
       client_folder: //'SafeOps.Web',  									//optional
