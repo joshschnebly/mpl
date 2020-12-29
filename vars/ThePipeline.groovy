@@ -39,7 +39,7 @@ def call(body) {
     ], 
     [:])
 
-  def branches_version_build_test_deploy_deploy = MPL.config.'branches_version_build_test_deploy' ?: '.*'
+  def branches_version_build_test_deploy = MPL.config.'branches_version_build_test_deploy' ?: '.*'
   def when_branches_version_server = MPL.config.'when_branches_version_server' ?: branches_version_build_test_deploy
   def when_branches_build = MPL.config.'when_branches_build' ?: branches_version_build_test_deploy
   def when_branches_test = MPL.config.'when_branches_test' ?: branches_version_build_test_deploy
