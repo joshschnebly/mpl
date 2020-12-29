@@ -28,7 +28,7 @@ def call(body) {
 
   def MPL = MPLPipelineConfig(body, 
     [
-      git_repository_name = gitRepositoryName,   
+      git_repository_name: gitRepositoryName,   
       git_repository_url: gitUrl,
       application_name: gitRepositoryName,    
       solution_filename: "${gitRepositoryName}.sln",
