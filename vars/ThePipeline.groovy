@@ -79,9 +79,9 @@ def call(body) {
           branch pattern: when_branches_version_server, comparator: "REGEXP"
         }
         steps { 
-          echo "Before VersionServer: ${MPL.config.toString()}"
+          //echo "Before VersionServer: ${MPL.config.toString()}"
           MPLModule() 
-          echo "After VersionServer: ${MPL.config.toString()}"
+          //echo "After VersionServer: ${MPL.config.toString()}"
         }
       }
       stage('Build') {
