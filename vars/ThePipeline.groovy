@@ -28,17 +28,22 @@ def call(body) {
 
   def MPL = MPLPipelineConfig(body, 
     [
-      jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
+      git_repository_name = gitRepositoryName,   
       git_repository_url: gitUrl,
+      application_name: gitRepositoryName,    
       solution_filename: "${gitRepositoryName}.sln",
-      models_package_project_name: "${gitRepositoryName}.Models"
+      models_package_project_name: "${gitRepositoryName}.Models",
+      jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
+      octopus_deploy_url: 'http://h2-voctopus01:80',
+      octopus_deploy_token: 'octopus-deploy-token'
     ], 
     [:])
 
-  def branches_version_build_test = MPL.config.'branches_version_build_test' ?: '.*'
-  def when_branches_version_server = MPL.config.'when_branches_version_server' ?: branches_version_build_test
-  def when_branches_build = MPL.config.'when_branches_build' ?: branches_version_build_test
-  def when_branches_test = MPL.config.'when_branches_test' ?: branches_version_build_test
+  def branches_version_build_test_deploy_deploy = MPL.config.'branches_version_build_test_deploy' ?: '.*'
+  def when_branches_version_server = MPL.config.'when_branches_version_server' ?: branches_version_build_test_deploy
+  def when_branches_build = MPL.config.'when_branches_build' ?: branches_version_build_test_deploy
+  def when_branches_test = MPL.config.'when_branches_test' ?: branches_version_build_test_deploy
+  def when_branches_deploy = MPL.config.'when_branches_deploy' ?: branches_version_build_test_deploy
   
   pipeline {
     agent any
@@ -110,18 +115,21 @@ def call(body) {
         }
         steps { MPLModule() }
       }
-      stage( 'Deploy' ) {
-        when { expression { MPLModuleEnabled() } }
-        steps { MPLModule() }
-      }
-      /*
       stage( 'Publish' ) {
         when { expression { MPLModuleEnabled() } }
         steps {
           MPLModule()
         }
       }
-    */
+      stage( 'Deploy' ) {
+        when { 
+          expression { MPLModuleEnabled() } 
+          branch pattern: when_branches_deploy, comparator: "REGEXP"
+        }
+        steps { 
+          MPLModule() 
+        }
+      }
     }
     post {
       always {  

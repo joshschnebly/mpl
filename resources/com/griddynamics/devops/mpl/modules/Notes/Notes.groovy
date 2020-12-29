@@ -6,6 +6,7 @@ if(CFG.'project_folder' != null)
     releaseNotesPath = ".\\${CFG.'project_folder'}\\RELEASE_NOTES.md"
     projectFolderCd = "cd ${CFG.'project_folder'} & "
 }
+OUT.'returns.release_notes_path' = releaseNotesPath
 
 bat(label: 'Clear release notes', script: "if exist ${releaseNotesPath} del ${releaseNotesPath}")
 env.GIT_REPOSITORY_URL = CFG.'git_repository_url'

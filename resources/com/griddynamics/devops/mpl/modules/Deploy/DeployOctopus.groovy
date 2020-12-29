@@ -1,4 +1,4 @@
-// withCredentials([string(credentialsId: 'octopus-deploy-token', variable: 'APIKey')]) {
-//     bat(label: "Push ${ArchiveName} to Octopus Deploy", script: """dotnet octo push --space SafePoint --package ${ArchiveName} --replace-existing --server ${OCTOPUS_SERVER_URL} --apiKey ${APIKey} --debug""") 
-//     bat(label: "Create ${PROJECT_NAME} v${RELEASE_NUMBER} release", script: """dotnet octo create-release --space SafePoint --project ${PROJECT_NAME} --version ${PACKAGE_VERSION} --packageVersion ${PACKAGE_VERSION} --releaseNotesFile ./${WEB_PROJECT_NAME}/RELEASE_NOTES.md --ignoreExisting --server ${OCTOPUS_SERVER_URL} --apiKey ${APIKey} --debug""") 
+// withCredentials([string(credentialsId: CFG.'octopus_deploy_token', variable: 'APIKey')]) {
+//     bat(label: "Push ${archiveName} to Octopus Deploy", script: """dotnet octo push --space SafePoint --package ${CFG.'archive_package_filepath'} --replace-existing --server ${octopusServerUrl} --apiKey ${APIKey} --debug""") 
+//     bat(label: "Create ${CFG.'application_name'} v${CFG.'current_version_number'} release", script: """dotnet octo create-release --space SafePoint --project ${CFG.'application_name'} --version ${packageVersion} --packageVersion ${packageVersion} --releaseNotesFile "${CFG.release_notes_path'}" --ignoreExisting --server ${CFG.'octopus_deploy_url'} --apiKey ${APIKey} --debug""") 
 // }
