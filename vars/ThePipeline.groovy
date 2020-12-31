@@ -35,7 +35,8 @@ def call(body) {
       models_package_project_name: "${gitRepositoryName}.Models",
       jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
       octopus_deploy_url: 'http://h2-voctopus01:80',
-      octopus_deploy_token: 'octopus-deploy-token'
+      octopus_deploy_token: 'octopus-deploy-token',
+      deployment_directory: "${WORKSPACE}\\Deployment"
     ], 
     [:])
 
@@ -52,6 +53,10 @@ def call(body) {
         //booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
     //}
     stages {
+      stage('Scm Skip') {
+        when { expression { MPLModuleEnabled() } }
+        steps { MPLModule() }
+      }
       stage('Startup') {
         when { expression { MPLModuleEnabled() } }
         steps { MPLModule() }

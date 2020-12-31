@@ -1,0 +1,1 @@
+scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
