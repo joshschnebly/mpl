@@ -25,8 +25,6 @@
 def call(body) {
   def gitUrl = scm.getUserRemoteConfigs()[0].getUrl()
   def gitRepositoryName = gitUrl.substring(gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4)
-  //def workspace = "${env.WORKSPACE}"
-  println "workspace:${env.WORKSPACE}"
 
   def MPL = MPLPipelineConfig(body, 
     [
@@ -37,8 +35,7 @@ def call(body) {
       models_package_project_name: "${gitRepositoryName}.Models",
       jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
       octopus_deploy_url: 'http://h2-voctopus01:80',
-      octopus_deploy_token: 'octopus-deploy-token',
-      deployment_directory: "${workspace}\\Deployment"
+      octopus_deploy_token: 'octopus-deploy-token'
     ], 
     [:])
 
