@@ -102,7 +102,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   //MPLManager.instance.pipelineCode += "\r\n\r\nmodule_name-${module_type}-${name}" 
 
   MPLManager.instance.pipelineCode += "${module_separator}Module(${module_type}.${name})\r\n\r\n${module_src}\r\n" 
-  //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
+  MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
   //pipeline += "\r\nmodule_config_pre-${cfg.toString()}" 
   String block_id = MPLManager.instance.pushActiveModule(module_path)
   try {
@@ -119,7 +119,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     throw newex
   }
   finally {
-    //MPLManager.instance.pipelineCode += "\r\nmodule_config_out-${out.toString()}" 
+    MPLManager.instance.pipelineCode += "\r\nmodule_config_out-${out.toString()}" 
     MPLManager.instance.modulePostStepsRun()
     def errors = MPLManager.instance.getPostStepsErrors()
     if( errors ) {
