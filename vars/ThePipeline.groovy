@@ -25,7 +25,7 @@
 def call(body) {
   def gitUrl = scm.getUserRemoteConfigs()[0].getUrl()
   def gitRepositoryName = gitUrl.substring(gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4)
-  def workspace = "${env.WORKSPACE}"
+  def workspace = "${WORKSPACE}"
   println "workspace:${workspace}"
 
   def MPL = MPLPipelineConfig(body, 
