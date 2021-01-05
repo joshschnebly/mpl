@@ -50,14 +50,6 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   else
     cfg = MPLConfig.create(cfg)
 
-  def cfgInitial = ''
-  // cfg.each{
-  //   cfgInitial += "${it.key} : ${it.value}\r\n"
-  // }
-  for(entry in cfg){
-    cfgInitial += "${entry.key} : ${entry.value}\r\n"
-  }
-  
   // Trace of the running modules to find loops
   // Also to make ability to use lib module from overridden one
   // TODO: replace getActiveModules() to Helper.getMPLBlocks()
@@ -108,7 +100,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   def out = MPLConfig.create()
   //println "module_path-later-${module_path}"
   println "Start Module: ${module_type}-${name}"
-  println cfgInitial 
+  println "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
   MPLManager.instance.pipelineCode += "${module_separator}Module(${module_type}.${name})\r\n\r\n${module_src}\r\n" 
   //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
@@ -141,6 +133,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     MPLManager.instance.popActiveModule(block_id)
   }
   println "End Module: ${module_type}-${name}"
+  println "OUT:\r\n${Helper.formatConfig(out)}"
   //println "end Module ${name}: ${out.toString()}"
   MPLPipelineConfigMerge(out)
   return out

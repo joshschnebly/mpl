@@ -309,4 +309,12 @@ abstract class Helper {
   static Set configEntrySet(Map config) {
     throw new MPLException('Forbidden to iterate over MPLConfig, please use some specific key with a good self-describable name')
   }
+
+  static String formatConfig(Map config) {
+    def formattedString = ''
+    config.each{
+      formattedString += "${it.key} : ${it.value}\r\n"
+    }
+    return formattedString
+  }
 }
