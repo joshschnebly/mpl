@@ -55,7 +55,7 @@ def call(body) {
       stage('Input'){
         when { expression { MPLModuleEnabled() } }
         steps { 
-          MPLModule()    
+          MPLModule()
         }
       }
       stage('ScmSkip') {
