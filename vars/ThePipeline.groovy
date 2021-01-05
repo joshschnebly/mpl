@@ -52,6 +52,12 @@ def call(body) {
         //booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
     //}
     stages {
+      stage('Input'){
+        when { expression { MPLModuleEnabled() } }
+        steps { 
+          MPLModule()    
+        }
+      }
       stage('ScmSkip') {
         when { expression { MPLModuleEnabled() } }
         steps { 
