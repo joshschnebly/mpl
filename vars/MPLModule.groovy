@@ -50,9 +50,9 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   else
     cfg = MPLConfig.create(cfg)
 
-  for (entry in cfg) {
-    println "Key: ${entry.key} = Value: ${entry.value}"
-  }
+  //for (entry in cfg) {
+    //println "Key: ${entry.key} = Value: ${entry.value}"
+  //}
   
   // Trace of the running modules to find loops
   // Also to make ability to use lib module from overridden one
