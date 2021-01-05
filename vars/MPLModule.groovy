@@ -50,8 +50,9 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   else
     cfg = MPLConfig.create(cfg)
 
+  def cfgInitial = ''
   cfg.each{
-    def cfgInitial += "${it.key} : ${it.value}\r\n"
+    cfgInitial += "${it.key} : ${it.value}\r\n"
   }
   
   // Trace of the running modules to find loops
