@@ -50,9 +50,8 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   else
     cfg = MPLConfig.create(cfg)
 
-  def cfgInitial
   cfg.each{
-    cfgInitial += "${it.key} : ${it.value}\r\n"
+    def cfgInitial += "${it.key} : ${it.value}\r\n"
   }
   
   // Trace of the running modules to find loops
@@ -104,11 +103,11 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   // OUT will be return to caller
   def out = MPLConfig.create()
   //println "module_path-later-${module_path}"
-  println "Start Module: ${module_type}-${name}\r\n"
+  println "Start Module: ${module_type}-${name}"
   println cfgInitial 
 
   MPLManager.instance.pipelineCode += "${module_separator}Module(${module_type}.${name})\r\n\r\n${module_src}\r\n" 
-  MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
+  //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
   //pipeline += "\r\nmodule_config_pre-${cfg.toString()}" 
   String block_id = MPLManager.instance.pushActiveModule(module_path)
   try {
