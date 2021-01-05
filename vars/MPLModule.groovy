@@ -102,7 +102,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   println "Start Module: ${module_type}-${name}"
   //println "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
-  MPLManager.instance.pipelineCode += "${separator}${separator}Module(${module_type}.${name})\r\n${separator}CFG:\r\n${Helper.formatConfig(cfg)}\r\n${separator}\r\n${module_src}\r\n" 
+  MPLManager.instance.pipelineCode += "${separator}${separator}Module(${module_type}.${name})\r\n${separator}CFG:\r\n${Helper.formatConfig(cfg)}${separator}\r\n${module_src}\r\n" 
   //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
   //pipeline += "\r\nmodule_config_pre-${cfg.toString()}" 
   String block_id = MPLManager.instance.pushActiveModule(module_path)
