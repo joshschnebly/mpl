@@ -75,7 +75,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   //println "env.WORKSPACE-${env.WORKSPACE}"
   def module_src = ''
   def module_type = ''
-  def module_separator = '--------------------------------------------------------\r\n'
+  def separator = '--------------------------------------------------------\r\n'
   if( MPLManager.instance.checkEnforcedModule(name)
       && fileExists(project_path)
       && (! active_modules.contains(project_path)) ) {
@@ -100,9 +100,9 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   def out = MPLConfig.create()
   //println "module_path-later-${module_path}"
   println "Start Module: ${module_type}-${name}"
-  println "CFG:\r\n${Helper.formatConfig(cfg)}" 
+  //println "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
-  MPLManager.instance.pipelineCode += "${module_separator}Module(${module_type}.${name})\r\n\r\n${module_src}\r\n" 
+  MPLManager.instance.pipelineCode += "${separator}${separator}Module(${module_type}.${name})\r\n${separator}\r\nCFG:\r\n${Helper.formatConfig(cfg)}\r\n\r\n${module_src}\r\n" 
   //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
   //pipeline += "\r\nmodule_config_pre-${cfg.toString()}" 
   String block_id = MPLManager.instance.pushActiveModule(module_path)
@@ -133,7 +133,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     MPLManager.instance.popActiveModule(block_id)
   }
   println "End Module: ${module_type}-${name}"
-  println "OUT:\r\n${Helper.formatConfig(out)}"
+  //println "OUT:\r\n${Helper.formatConfig(out)}"
   //println "end Module ${name}: ${out.toString()}"
   MPLPipelineConfigMerge(out)
   return out
