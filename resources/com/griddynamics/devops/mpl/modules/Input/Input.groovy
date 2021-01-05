@@ -9,6 +9,11 @@
         //     input(id: 'userInput', message: 'Merge to?',
         //      parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'false', description:'Publish Models Package to Nuget']
         //      ])
-input name: 'Test', message: 'Publish Models Package to Nuget', parameters: [[$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'test']]
-OUT.'returns.publish_package' = publish_package
-OUT.'returns.publish_package_beta' = publish_package_beta
+//input message: 'Proceed with this step?', submitter: "${approvers}"
+
+def abc = input message: 'User input required',
+              parameters: [booleanParam(name: 'publish_package', defaultValue: 'false', description: 'Publish Models Package to Nuget')]
+        }
+
+OUT.'returns.publish_package' = abc
+OUT.'returns.publish_package_beta' = abc
