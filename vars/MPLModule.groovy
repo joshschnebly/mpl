@@ -50,9 +50,9 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   else
     cfg = MPLConfig.create(cfg)
 
-  //for (entry in cfg) {
-    //println "Key: ${entry.key} = Value: ${entry.value}"
-  //}
+  cfg.each{
+    println it.key +" : "+ it.value
+  }
   
   // Trace of the running modules to find loops
   // Also to make ability to use lib module from overridden one
@@ -103,7 +103,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   // OUT will be return to caller
   def out = MPLConfig.create()
   //println "module_path-later-${module_path}"
-  //MPLManager.instance.pipelineCode += "\r\n\r\nmodule_name-${module_type}-${name}" 
+  println "Start Module: ${module_type}-${name}" 
 
   MPLManager.instance.pipelineCode += "${module_separator}Module(${module_type}.${name})\r\n\r\n${module_src}\r\n" 
   MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
@@ -123,7 +123,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     throw newex
   }
   finally {
-    MPLManager.instance.pipelineCode += "\r\nmodule_config_out-${out.toString()}" 
+    //MPLManager.instance.pipelineCode += "\r\nmodule_config_out-${out.toString()}" 
     MPLManager.instance.modulePostStepsRun()
     def errors = MPLManager.instance.getPostStepsErrors()
     if( errors ) {
@@ -135,7 +135,8 @@ def call(String name = env.STAGE_NAME, cfg = null) {
     }
     MPLManager.instance.popActiveModule(block_id)
   }
-  println "end Module ${name}: ${out.toString()}"
+  println "End Module: ${module_type}-${name}"
+  //println "end Module ${name}: ${out.toString()}"
   MPLPipelineConfigMerge(out)
   return out
 }
