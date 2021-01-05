@@ -54,7 +54,12 @@ def call(body) {
     stages {
       stage('ScmSkip') {
         when { expression { MPLModuleEnabled() } }
-        steps { MPLModule() }
+        steps { 
+          MPLModule() 
+          for (entry in CFG) {
+            println "Key: ${entry.key} = Value: ${entry.value}"
+          }   
+        }
       }
       stage('Startup') {
         when { expression { MPLModuleEnabled() } }

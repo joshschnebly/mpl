@@ -87,7 +87,9 @@ public class MPLConfig implements Map, Serializable {
   public int size() { this.@config.size() }
   public boolean isEmpty() { this.@config.isEmpty() }
   /* Intentionally disabled iteration - MPLConfig is not a usual Map */
-  public Set entrySet() { Helper.configEntrySet(this.@config) }
+  //public Set entrySet() { Helper.configEntrySet(this.@config) }
+  public Set entrySet() {this.@config.entrySet() }
+
 
   /**
    * Get a value copy of the provided config key path

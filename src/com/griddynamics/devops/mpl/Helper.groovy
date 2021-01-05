@@ -306,7 +306,8 @@ abstract class Helper {
    *
    * @return  Set of entries - but only when overridden by unit tests
    */
-  static Set configEntrySet(Map config) {
-    throw new MPLException('Forbidden to iterate over MPLConfig, please use some specific key with a good self-describable name')
-  }
+  //static Set configEntrySet(Map config) {
+    //config.entrySet()
+    //throw new MPLException('Forbidden to iterate over MPLConfig, please use some specific key with a good self-describable name')
+  //}
 }
