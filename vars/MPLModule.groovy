@@ -102,7 +102,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   println "Start Module: ${module_type}-${name}"
   println "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
-  if(cfg.'debug' == true) {
+  if(cfg.'debug') {
     MPLManager.instance.pipelineCode += "\r\n\r\n${separator}${separator}Module-${module_type}.${name}\r\n${separator}CFG:\r\n${Helper.formatConfig(cfg)}${separator}${module_src}" 
   }
   
