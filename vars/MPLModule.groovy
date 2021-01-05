@@ -137,7 +137,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   println "End Module: ${module_type}-${name}"
   //println "OUT:\r\n${Helper.formatConfig(out)}"
   //println "end Module ${name}: ${out.toString()}"
-  MPLManager.instance.pipelineCode += "OUT:\r\n${Helper.formatConfig(out)}"
   MPLPipelineConfigMerge(out)
+  MPLManager.instance.pipelineCode += "${separator}OUT:\r\n${Helper.formatConfig(out)}"
   return out
 }
