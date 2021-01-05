@@ -101,8 +101,8 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   //println "module_path-later-${module_path}"
   println "Start Module: ${module_type}-${name}"
   //println "CFG:\r\n${Helper.formatConfig(cfg)}" 
-  //def cfgFormat = ''
-  //cfgFormat = "CFG:\r\n${Helper.formatConfig(cfg)}" 
+  def cfgFormat = ''
+  cfgFormat = "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
   MPLManager.instance.pipelineCode += "\r\n${separator}${separator}Module-${module_type}.${name}\r\n${separator}${cfgFormat}${separator}${module_src}" 
   //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
