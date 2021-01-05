@@ -1,7 +1,3 @@
-
-echo "MPL Version Start CFG - ${CFG.toString()}"
-echo "MPL Version Start OUT - ${OUT.toString()}"
-
 def currentVersionNumber = ''
 if (CFG.'previous_version_number' == null) {
     //Default versioning 
@@ -28,8 +24,3 @@ if(CFG.'release_candidate_suffix' != null) {
 if(CFG.'build_type' != null) {
   bat(label: 'Build Selected', script: "echo ${CFG.'build_type'}")
 }
-
-echo "MPL Version End CFG - ${CFG.toString()}"
-echo "MPL Version End OUT - ${OUT.toString()}"
-
-
