@@ -103,7 +103,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   //println "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
   def cfgFormatted = cfg.'debugLevel' == 'verbose' ? "CFG:\r\n${Helper.formatConfig(cfg)}${separator}" : ''
-  if(cfg.'debugLevel' == 'basic') {
+  if(cfg.'debugLevel' == 'basic'  || cfg.'debugLevel' == 'verbose') {
     MPLManager.instance.pipelineCode += "\r\n\r\n${separator}${separator}Module-${module_type}.${name}\r\n${separator}${cfgFormatted}${module_src}" 
   }
   
