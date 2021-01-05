@@ -101,10 +101,10 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   //println "module_path-later-${module_path}"
   println "Start Module: ${module_type}-${name}"
   //println "CFG:\r\n${Helper.formatConfig(cfg)}" 
-  def cfgFormat = ''
-  cfgFormat = "CFG:\r\n${Helper.formatConfig(cfg)}" 
+  //def cfgFormat = ''
+  //cfgFormat = "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
-  MPLManager.instance.pipelineCode += "${separator}${separator}Module-${module_type}.${name}\r\n${separator}${cfgFormat}${separator}${module_src}\r\n" 
+  MPLManager.instance.pipelineCode += "\r\n${separator}${separator}Module-${module_type}.${name}\r\n${separator}${cfgFormat}${separator}${module_src}" 
   //MPLManager.instance.pipelineCode += "\r\nmodule_config_pre-${cfg.toString()}" 
   //pipeline += "\r\nmodule_config_pre-${cfg.toString()}" 
   String block_id = MPLManager.instance.pushActiveModule(module_path)
@@ -137,6 +137,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   println "End Module: ${module_type}-${name}"
   //println "OUT:\r\n${Helper.formatConfig(out)}"
   //println "end Module ${name}: ${out.toString()}"
+  MPLManager.instance.pipelineCode += "OUT:\r\n${Helper.formatConfig(out)}"
   MPLPipelineConfigMerge(out)
   return out
 }
