@@ -102,8 +102,8 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   println "Start Module: ${module_type}-${name}"
   //println "CFG:\r\n${Helper.formatConfig(cfg)}" 
 
-  def cfgFormatted = cfg.'debugLevel' == 'verbose' ? "CFG:\r\n${Helper.formatConfig(cfg)}${separator}" : ''
-  if(cfg.'debugLevel' == 'basic'  || cfg.'debugLevel' == 'verbose') {
+  def cfgFormatted = cfg.'debug_level' == 'verbose' ? "CFG:\r\n${Helper.formatConfig(cfg)}${separator}" : ''
+  if(cfg.'debug_level' == 'basic'  || cfg.'debug_level' == 'verbose') {
     MPLManager.instance.pipelineCode += "\r\n\r\n${separator}${separator}Module-${module_type}.${name}\r\n${separator}${cfgFormatted}${module_src}" 
   }
   
@@ -141,7 +141,7 @@ def call(String name = env.STAGE_NAME, cfg = null) {
   //println "end Module ${name}: ${out.toString()}"
   MPLPipelineConfigMerge(out)
 
-  if(cfg.'debugLevel' == 'verbose') {
+  if(cfg.'debug_level' == 'verbose') {
     MPLManager.instance.pipelineCode += Helper.formatConfig(out) == '' ? '' : "\r\n${separator}OUT: ${module_type}.${name}\r\n${Helper.formatConfig(out)}" 
   }
   //def outFormatted = Helper.formatConfig(out) == '' ? '' : "\r\n${separator}OUT: ${module_type}.${name}\r\n${Helper.formatConfig(out)}" 
