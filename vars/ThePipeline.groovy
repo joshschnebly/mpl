@@ -54,6 +54,10 @@ def call(body) {
     stages {
       stage('Input'){
         when { expression { MPLModuleEnabled() } }
+        parameters {
+            booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
+            booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
+        }
         steps { 
           MPLModule()
         }
