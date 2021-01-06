@@ -11,8 +11,7 @@
         //      ])
 //input message: 'Proceed with this step?', submitter: "${approvers}"
 
-// def abc = input message: 'User input required',
-//                 parameters: [booleanParam(name: 'publish_package', defaultValue: 'false', description: 'Publish Models Package to Nuget')]
+input message: 'User input required', parameters: [booleanParam(name: 'publish_package', defaultValue: 'false', description: 'Publish Models Package to Nuget')]
 
 
 OUT.'returns.publish_package' = publish_package
