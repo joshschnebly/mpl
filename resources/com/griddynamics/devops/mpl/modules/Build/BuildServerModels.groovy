@@ -7,7 +7,7 @@ def modelProject = "${modelProjectName}\\${modelProjectName}.csproj"
 def solutionName = "${CFG.'solution_filename'}"
 def modelProjectNuGetSuffix = ''
 
-if (params.publish_package_beta == true) {
+if (CFG.'publish_package_beta') {
   modelProjectNuGetSuffix = "-beta${currentBuild.id}" 
 }
 

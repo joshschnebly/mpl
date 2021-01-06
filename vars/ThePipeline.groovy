@@ -28,9 +28,9 @@ def call(body) {
 
   def MPL = MPLPipelineConfig(body, 
     [
+      application_name: gitRepositoryName, 
       git_repository_name: gitRepositoryName,   
-      git_repository_url: gitUrl,
-      application_name: gitRepositoryName,    
+      git_repository_url: gitUrl,   
       solution_filename: "${gitRepositoryName}.sln",
       models_package_project_name: "${gitRepositoryName}.Models",
       jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
@@ -47,10 +47,6 @@ def call(body) {
   
   pipeline {
     agent any
-    //parameters {
-        //booleanParam(name:'publish_package', defaultValue: false, description: 'Publish Models Package to Nuget')
-        //booleanParam(name:'publish_package_beta', defaultValue: false, description: 'Publish Models Beta Package to Nuget')
-    //}
     stages {
       stage('Input'){
         when { expression { MPLModuleEnabled() } }
