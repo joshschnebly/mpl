@@ -24,18 +24,22 @@
 
 def call(body) {
   def gitUrl = scm.getUserRemoteConfigs()[0].getUrl()
-  def gitRepositoryName = gitUrl.substring(gitUrl.lastIndexOf("/") + 1, gitUrl.length()-4)
+  def splitGitUrl = gitUrl.split('/')
+  def git_repository_name = splitGitUrl[-1]
+  def git_organization_name = splitGitUrl[-2]
 
   def MPL = MPLPipelineConfig(body, 
     [
+      solution_filename: "${gitRepositoryName}.sln",
       application_name: gitRepositoryName, 
+      models_package_project_folder: "${gitRepositoryName}.Models",
       git_repository_name: gitRepositoryName,   
       git_repository_url: gitUrl,   
-      solution_filename: "${gitRepositoryName}.sln",
-      models_package_project_name: "${gitRepositoryName}.Models",
       jenkins_ghe_token: 'usa_houston-jschnebly-GHE-Token',
       octopus_deploy_url: 'http://h2-voctopus01:80',
-      octopus_deploy_token: 'octopus-deploy-token'
+      octopus_deploy_token: 'octopus-deploy-token',
+      octopus_space = git_organization_name,
+      debug_level = 'verbose'
     ], 
     [:])
 
